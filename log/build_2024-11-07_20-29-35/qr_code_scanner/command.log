@@ -1,2 +1,0 @@
-Invoking command in '/home/neolux/Desktop/neo_qrcode/build/qr_code_scanner': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/neolux/Desktop/neo_qrcode/qr_code_scanner -DCMAKE_INSTALL_PREFIX=/home/neolux/Desktop/neo_qrcode/install/qr_code_scanner
-Invoked command in '/home/neolux/Desktop/neo_qrcode/build/qr_code_scanner' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/neolux/Desktop/neo_qrcode/qr_code_scanner -DCMAKE_INSTALL_PREFIX=/home/neolux/Desktop/neo_qrcode/install/qr_code_scanner
