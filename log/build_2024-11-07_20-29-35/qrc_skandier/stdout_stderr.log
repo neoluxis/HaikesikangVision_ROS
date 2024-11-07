@@ -1,0 +1,40 @@
+running egg_info
+creating ../build/qrc_skandier/qrc_skandier.egg-info
+writing ../build/qrc_skandier/qrc_skandier.egg-info/PKG-INFO
+writing dependency_links to ../build/qrc_skandier/qrc_skandier.egg-info/dependency_links.txt
+writing entry points to ../build/qrc_skandier/qrc_skandier.egg-info/entry_points.txt
+writing requirements to ../build/qrc_skandier/qrc_skandier.egg-info/requires.txt
+writing top-level names to ../build/qrc_skandier/qrc_skandier.egg-info/top_level.txt
+writing manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+reading manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+writing manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build
+creating /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib
+creating /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier
+copying qrc_skandier/__init__.py -> /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier
+copying qrc_skandier/qrc_cam.py -> /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier
+copying qrc_skandier/threCam.py -> /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier
+copying qrc_skandier/qrc_scanner.py -> /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier
+running install
+running install_lib
+creating /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier
+copying /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier/__init__.py -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier
+copying /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier/qrc_cam.py -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier
+copying /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier/threCam.py -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier
+copying /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier/qrc_scanner.py -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier
+byte-compiling /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier/qrc_cam.py to qrc_cam.cpython-310.pyc
+byte-compiling /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier/threCam.py to threCam.cpython-310.pyc
+byte-compiling /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier/qrc_scanner.py to qrc_scanner.cpython-310.pyc
+running install_data
+creating /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/share/ament_index
+creating /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/share/ament_index/resource_index
+creating /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/share/ament_index/resource_index/packages
+copying resource/qrc_skandier -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/share/ament_index/resource_index/packages
+copying package.xml -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/share/qrc_skandier
+running install_egg_info
+Copying ../build/qrc_skandier/qrc_skandier.egg-info to /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/neolux/Desktop/neo_qrcode/build/qrc_skandier/install.log'

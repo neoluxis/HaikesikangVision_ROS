@@ -1,0 +1,17 @@
+[31mCMake Error at CMakeLists.txt:14 (find_package):
+  By not providing "Findzbar.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "zbar", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "zbar" with any of
+  the following names:
+
+    zbarConfig.cmake
+    zbar-config.cmake
+
+  Add the installation prefix of "zbar" to CMAKE_PREFIX_PATH or set
+  "zbar_DIR" to a directory containing one of the above files.  If "zbar"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+
+[0m

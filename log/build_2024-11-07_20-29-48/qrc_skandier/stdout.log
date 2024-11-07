@@ -1,0 +1,18 @@
+running egg_info
+writing ../build/qrc_skandier/qrc_skandier.egg-info/PKG-INFO
+writing dependency_links to ../build/qrc_skandier/qrc_skandier.egg-info/dependency_links.txt
+writing entry points to ../build/qrc_skandier/qrc_skandier.egg-info/entry_points.txt
+writing requirements to ../build/qrc_skandier/qrc_skandier.egg-info/requires.txt
+writing top-level names to ../build/qrc_skandier/qrc_skandier.egg-info/top_level.txt
+reading manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+writing manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../build/qrc_skandier/qrc_skandier.egg-info to /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/neolux/Desktop/neo_qrcode/build/qrc_skandier/install.log'

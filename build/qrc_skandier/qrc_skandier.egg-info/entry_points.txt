@@ -1,0 +1,4 @@
+[console_scripts]
+qrc_cam = qrc_skandier.qrc_cam:main
+qrc_scanner = qrc_skandier.qrc_scanner:main
+

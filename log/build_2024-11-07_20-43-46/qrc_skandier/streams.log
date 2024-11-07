@@ -1,0 +1,28 @@
+[0.706s] Invoking command in '/home/neolux/Desktop/neo_qrcode/qrc_skandier': PYTHONPATH=/home/neolux/Desktop/neo_qrcode/build/qrc_skandier/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/qrc_skandier build --build-base /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build install --record /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/install.log --single-version-externally-managed install_data
+[0.962s] running egg_info
+[0.962s] writing ../build/qrc_skandier/qrc_skandier.egg-info/PKG-INFO
+[0.962s] writing dependency_links to ../build/qrc_skandier/qrc_skandier.egg-info/dependency_links.txt
+[0.962s] writing entry points to ../build/qrc_skandier/qrc_skandier.egg-info/entry_points.txt
+[0.962s] writing requirements to ../build/qrc_skandier/qrc_skandier.egg-info/requires.txt
+[0.963s] writing top-level names to ../build/qrc_skandier/qrc_skandier.egg-info/top_level.txt
+[0.964s] reading manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+[0.965s] writing manifest file '../build/qrc_skandier/qrc_skandier.egg-info/SOURCES.txt'
+[0.965s] running build
+[0.965s] running build_py
+[0.966s] copying qrc_skandier/qrc_cam.py -> /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier
+[0.966s] copying utils/threCam.py -> /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/utils
+[0.966s] running install
+[0.966s] running install_lib
+[0.967s] copying /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/qrc_skandier/qrc_cam.py -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier
+[0.967s] copying /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build/lib/utils/threCam.py -> /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/utils
+[0.968s] byte-compiling /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier/qrc_cam.py to qrc_cam.cpython-310.pyc
+[0.969s] byte-compiling /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/utils/threCam.py to threCam.cpython-310.pyc
+[0.970s] running install_data
+[0.970s] running install_egg_info
+[0.971s] removing '/home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier-0.0.0-py3.10.egg-info' (and everything under it)
+[0.972s] Copying ../build/qrc_skandier/qrc_skandier.egg-info to /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages/qrc_skandier-0.0.0-py3.10.egg-info
+[0.973s] running install_scripts
+[0.991s] Installing qrc_cam script to /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/qrc_skandier
+[0.991s] Installing qrc_scanner script to /home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/qrc_skandier
+[0.992s] writing list of installed files to '/home/neolux/Desktop/neo_qrcode/build/qrc_skandier/install.log'
+[1.010s] Invoked command in '/home/neolux/Desktop/neo_qrcode/qrc_skandier' returned '0': PYTHONPATH=/home/neolux/Desktop/neo_qrcode/build/qrc_skandier/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/neolux/Desktop/neo_qrcode/install/qrc_skandier/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../build/qrc_skandier build --build-base /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/build install --record /home/neolux/Desktop/neo_qrcode/build/qrc_skandier/install.log --single-version-externally-managed install_data
