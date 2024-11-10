@@ -14,7 +14,7 @@ shutdown_pin = 38  # BOARD 编码 38
 # 检测到 38 号引脚的下降沿时关闭系统
 def shutdown_system(channel):
     print("Shutdown button pressed! Shutting down...")
-    os.system("sudo shutdown now")
+    os.system("sudo killall -u sunrise && sudo sync && sudo shutdown now")
 
 def main():
     # Pin Setup
