@@ -8,6 +8,8 @@ import cv2 as cv
 import numpy as np
 import pyzbar.pyzbar as pyzbar
 import time
+import datetime
+
 
 from utils.neo_img_trans import ros2cv
 
@@ -19,15 +21,17 @@ class QrcScanner(Node):
         self.qrc_img_sub = self.create_subscription(
             Image,
             "qrc_image",
-            #"image_mjpeg",
+            # "image_mjpeg",
             self.scan_code,
             10,
         )
         self.res_pub = self.create_publisher(String, "qrc_result", 10)
+        self.show = True
 
     def scan_code(self, msg):
         cv_img = ros2cv(msg)
         if cv_img is None:
+            self.res_pub.publish(String(data="Get None image"))
             return
         t0 = time.time()
         decoded_objects = pyzbar.decode(cv_img)
@@ -36,9 +40,12 @@ class QrcScanner(Node):
             self.get_logger().info(f"Detected: {text}")
             self.res_pub.publish(String(data=text))
         self.get_logger().info(f"Scan time: {time.time() - t0:.3f}")
-
-        # cv.imshow("qrc", cv_img)
-        # cv.waitKey(1)
+        # TODO: Remove this part showing the image instead, using a flask server
+        if self.show:
+            cv.imshow("qrc", cv_img)
+            if cv.waitKey(1) == ord("q"):
+                cv.destroyAllWindows()
+                self.show = False
 
 
 def main():

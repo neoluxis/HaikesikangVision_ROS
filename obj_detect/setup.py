@@ -25,7 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "obj_serial = obj_detect.serial:main",
+            "obj_serial = obj_detect.obj_serial:main",
         ],
     },
 )

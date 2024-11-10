@@ -41,7 +41,8 @@ def generate_launch_description():
         launch_arguments={
             'usb_image_width': '640',
             'usb_image_height': '400',
-            'usb_pixel_format': 'mjpg2rgb',
+            'usb_pixel_format': 'mjpeg2rgb',
+            'usb_framerate': '240',
             'usb_zero_copy': 'False',
             'usb_video_device': LaunchConfiguration('device')
         }.items()
