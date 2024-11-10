@@ -29,11 +29,18 @@ class QrcScanner(Node):
         self.show = True
 
     def scan_code(self, msg):
-        cv_img = ros2cv(msg)
+        t0 = time.time()
+        # cv_img = ros2cv(msg)
+        cv_img = msg.data
+        cv_img = np.reshape(cv_img, (400, 640, 3))
+        cv_img = cv.cvtColor(cv_img, cv.COLOR_BGR2GRAY)
+        cv_img = cv.resize(cv_img, (0,0),fx=0.35, fy=0.35)
+        # self.get_logger().info(f"{len(msg.data)}")
+        # self.get_logger().info(f"{cv_img.shape}")
+        # cv_img = msg.data
         if cv_img is None:
             self.res_pub.publish(String(data="Get None image"))
             return
-        t0 = time.time()
         decoded_objects = pyzbar.decode(cv_img)
         if decoded_objects:
             text = decoded_objects[0].data.decode("utf-8")
@@ -41,11 +48,15 @@ class QrcScanner(Node):
             self.res_pub.publish(String(data=text))
         self.get_logger().info(f"Scan time: {time.time() - t0:.3f}")
         # TODO: Remove this part showing the image instead, using a flask server
-        if self.show:
-            cv.imshow("qrc", cv_img)
-            if cv.waitKey(1) == ord("q"):
-                cv.destroyAllWindows()
-                self.show = False
+        # if self.show:
+        #     try:
+        #         cv.imshow("qrc", cv_img)
+        #         if cv.waitKey(1) == ord("q"):
+        #             cv.destroyAllWindows()
+        #             self.show = False
+        #     except Exception as e:
+        #         self.get_logger().info(f"Show image error: {e}")
+        #         self.show = False
 
 
 def main():
