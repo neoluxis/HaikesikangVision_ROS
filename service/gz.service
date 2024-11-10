@@ -1,0 +1,15 @@
+[Unit]
+Description=Shuixia Robot Startup Script
+
+[Service]
+Type=simple
+
+User=root
+
+ExecStart=/root/dev_ws/gz/service/gz.sh
+
+PrivateTmp=true
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

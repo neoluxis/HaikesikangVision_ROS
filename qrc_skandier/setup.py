@@ -1,6 +1,8 @@
 from setuptools import find_packages, setup
 import os
 from glob import glob
+import warnings
+warnings.filterwarnings("ignore")
 
 package_name = "qrc_skandier"
 
@@ -24,6 +26,7 @@ setup(
         "console_scripts": [
             f"qrc_cam = {package_name}.qrc_cam:main",
             f"qrc_scanner = {package_name}.qrc_scanner:main",
+            f"flaskr = flaskr.app:main",
         ],
     },
 )

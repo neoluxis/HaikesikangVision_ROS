@@ -1,6 +1,5 @@
 import rclpy
 from rclpy.node import Node
-from utils.threCam import ThreadCap
 
 from sensor_msgs.msg import Image
 
@@ -8,13 +7,14 @@ import cv2 as cv
 import numpy as np
 
 from utils.neo_img_trans import cv2ros
+from utils.threCam import ThreadCap
 
 
 class QrcCam(Node):
     def __init__(self, name):
         super().__init__(name)
 
-        self.declare_parameter("cam_idx", 8)
+        self.declare_parameter("cam_idx", 0)
         self.declare_parameter("fps", 240)
         self.declare_parameter("img_width", 640)
         self.declare_parameter("img_height", 400)
@@ -42,7 +42,7 @@ class QrcCam(Node):
         _, frame = self.cam.read()
         if frame is None:
             return
-        frame = cv.resize(frame, (0, 0), fx=0.2, fy=0.2)
+        frame = cv.resize(frame, (0, 0), fx=0.35, fy=0.35)
         # cv.imshow("fr", frame)
         # cv.waitKey(1)
         self.msg.data = cv2ros(frame)

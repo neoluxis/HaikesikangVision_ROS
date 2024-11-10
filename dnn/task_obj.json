@@ -1,0 +1,13 @@
+{
+	"model_file": "/root/dev_ws/neo_qrcode/dnn/yolov5s_1110_640_nv12_3out_672.bin",
+	"model_name": "yolov5s_1110_640_nv12_3out_672",
+	"dnn_Parser": "yolov5x",
+	"model_output_count": 3,
+	"class_num": 6,
+	"cls_names_list": "/root/dev_ws/neo_qrcode/dnn/gz_1110.list",
+	"strides": [8, 16, 32],
+	"anchors_table": [[[10, 13], [16, 30], [33, 23]], [[30, 61], [62, 45], [59, 119]], [[116, 90], [156, 198], [373, 326]]],
+	"score_threshold": 0.4,
+	"nms_threshold": 0.5,
+	"nms_top_k": 5000
+}
