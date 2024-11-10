@@ -30,7 +30,7 @@ def generate_launch_description():
     # using usb cam publish image
     usb_cam_device_arg = DeclareLaunchArgument(
         'device',
-        default_value='/dev/video8',
+        default_value='/dev/video0',
         description='usb camera device')
 
     usb_node = IncludeLaunchDescription(
@@ -42,7 +42,6 @@ def generate_launch_description():
             'usb_image_width': '640',
             'usb_image_height': '400',
             'usb_pixel_format': 'mjpeg2rgb',
-            'usb_framerate': '240',
             'usb_zero_copy': 'False',
             'usb_video_device': LaunchConfiguration('device')
         }.items()
