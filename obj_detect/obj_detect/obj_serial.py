@@ -14,7 +14,7 @@ class ByteArray(bytearray):
         super().__init__(data)
         self.data = data
 
-    def __repr__(self):
+    def __str__(self):
         return f"[{', '.join([f'0x{byte:02X}' for byte in self.data])}]"
 
 
