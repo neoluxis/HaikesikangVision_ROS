@@ -45,7 +45,8 @@ class QrcScanner(Node):
         # self.get_logger().info(f"{cv_img.shape}")
         # cv_img = msg.data
         if cv_img is None:
-            self.res_pub.publish(String(data="Get None image"))
+            # self.res_pub.publish(String(data="Get None image"))
+            self.get_logger().info("Get None image")
             return
         decoded_objects = pyzbar.decode(cv_img)
         if decoded_objects:
@@ -67,6 +68,8 @@ class QrcScanner(Node):
     def shutdown(self, msg):
         self.get_logger().info(f"Shutdown: {msg.data}")
         self.destroy_node()
+        self.get_logger().info(f"Destroyed node {self.get_name()}")
+        rclpy.shutdown()
 
 
 def main():

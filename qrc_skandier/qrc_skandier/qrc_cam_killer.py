@@ -20,6 +20,7 @@ class QrcCamKiller(Node):
         self.qrc_kill_pub.publish(String(data="kill"))
         self.get_logger().info("Killed all qrc* nodes")
         self.destroy_node()
+        rclpy.shutdown()
 
 
 def main(args=None):

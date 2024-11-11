@@ -15,7 +15,7 @@ class QrcCam(Node):
     def __init__(self, name):
         super().__init__(name)
 
-        self.declare_parameter("cam_idx", 2)
+        self.declare_parameter("cam_idx", 0)
         self.declare_parameter("fps", 240)
         self.declare_parameter("img_width", 640)
         self.declare_parameter("img_height", 400)
@@ -86,6 +86,9 @@ class QrcCam(Node):
     def shutdown(self, msg):
         self.get_logger().info(f"Shutdown: {msg.data}")
         self.destroy_node()
+        self.cam.release()
+        self.get_logger().info(f"Destroyed node {self.get_name()}")
+        rclpy.shutdown()
 
 
 def main():

@@ -19,28 +19,28 @@ def generate_launch_description():
 
     # TODO: 不能同时开两个？ : 4 usb port are in the same bus. and the usb camera speed is too high
     # 二维码识别的 usb camera
-    qrc_usb_cam_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory("qrc_hobot_usb_cam"),
-                "launch/hobot_usb_cam.launch.py",
-            )
-        ),
-        launch_arguments={
-            "usb_image_width": "640",
-            "usb_image_height": "400",
-            "usb_framerate": "240",
-            "usb_pixel_format": "mjpeg2rgb",
-            "usb_video_device": LaunchConfiguration("cap_qrc"),
-        }.items(),
-    )
-    
-    # qrc_usb_cam_node = Node(
-    #     package="qrc_skandier",
-    #     executable="qrc_cam",
-    #     name="qrc_cam",
-    #     output="screen",
+    # qrc_usb_cam_node = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(
+    #             get_package_share_directory("qrc_hobot_usb_cam"),
+    #             "launch/hobot_usb_cam.launch.py",
+    #         )
+    #     ),
+    #     launch_arguments={
+    #         "usb_image_width": "640",
+    #         "usb_image_height": "400",
+    #         "usb_framerate": "240",
+    #         "usb_pixel_format": "mjpeg2rgb",
+    #         "usb_video_device": LaunchConfiguration("cap_qrc"),
+    #     }.items(),
     # )
+
+    qrc_usb_cam_node = Node(
+        package="qrc_skandier",
+        executable="qrc_cam",
+        name="qrc_cam",
+        output="screen",
+    )
 
     qrc_scanner_hobot_codec_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -65,11 +65,19 @@ def generate_launch_description():
         output="screen",
     )
 
+    qrc_killer_node = Node(
+        package="qrc_skandier",
+        executable="qrc_cam_killer",
+        name="qrc_cam_killer",
+        output="screen",
+    )
+
     return LaunchDescription(
         [
             cap_qrc_dev_arg,
             qrc_usb_cam_node,
             qrc_scanner_node,
-            qrc_scanner_hobot_codec_node,
+            # qrc_scanner_hobot_codec_node,
+            qrc_killer_node,
         ]
     )

@@ -26,6 +26,7 @@ setup(
         "console_scripts": [
             f"qrc_cam = {package_name}.qrc_cam:main",
             f"qrc_scanner = {package_name}.qrc_scanner:main",
+            f"qrc_cam_killer = {package_name}.qrc_cam_killer:main",
             f"flaskr = flaskr.app:main",
         ],
     },
