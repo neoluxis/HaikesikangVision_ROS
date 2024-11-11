@@ -70,7 +70,7 @@ def generate_launch_description():
 
     config_file_launch_arg = DeclareLaunchArgument(
         "dnn_example_config_file",
-        default_value=TextSubstitution(text="./yolov5xworkconfig.json"),
+        default_value=TextSubstitution(text="/root/dev_ws/appli/dnn/task_obj.json"),
     )
     dump_render_launch_arg = DeclareLaunchArgument(
         "dnn_example_dump_render_img", default_value=TextSubstitution(text="0")
@@ -97,7 +97,7 @@ def generate_launch_description():
         launch_arguments={
             "usb_image_width": "640",
             "usb_image_height": "480",
-            'usb_framerate': '120',
+            'usb_framerate': '60',
             "usb_video_device": LaunchConfiguration("cap_objdet"),
         }.items(),
     )

@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 
 from sensor_msgs.msg import Image
+from std_msgs.msg import String
 
 import cv2 as cv
 import numpy as np
@@ -14,17 +15,34 @@ class QrcCam(Node):
     def __init__(self, name):
         super().__init__(name)
 
-        self.declare_parameter("cam_idx", 0)
+        self.declare_parameter("cam_idx", 2)
         self.declare_parameter("fps", 240)
         self.declare_parameter("img_width", 640)
         self.declare_parameter("img_height", 400)
         # self.declare_parameter("img_fourcc", cv.VideoWriter.fourcc(*"MJPG"))
 
         self.get_logger().info(f"QrcCam Node {name}")
-        self.cam = ThreadCap(
-            self.get_parameter("cam_idx").get_parameter_value().integer_value,
+        # self.cam = ThreadCap(
+        #     self.get_parameter("cam_idx").get_parameter_value().integer_value,
+        #     self.get_parameter("img_width").get_parameter_value().integer_value,
+        #     self.get_parameter("img_height").get_parameter_value().integer_value,
+        #     self.get_parameter("fps").get_parameter_value().integer_value,
+        # )
+
+        self.cam = cv.VideoCapture(
+            self.get_parameter("cam_idx").get_parameter_value().integer_value
+        )
+        self.cam.set(
+            cv.CAP_PROP_FRAME_WIDTH,
             self.get_parameter("img_width").get_parameter_value().integer_value,
+        )
+        self.cam.set(
+            cv.CAP_PROP_FRAME_HEIGHT,
             self.get_parameter("img_height").get_parameter_value().integer_value,
+        )
+        self.cam.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc(*"MJPG"))
+        self.cam.set(
+            cv.CAP_PROP_FPS,
             self.get_parameter("fps").get_parameter_value().integer_value,
         )
 
@@ -38,9 +56,17 @@ class QrcCam(Node):
         self.frame_count = 0
         self.fps_timer = self.create_timer(1, self.fps_callback)
 
+        self.shutdown_sub = self.create_subscription(
+            String,
+            "kill_qrc",
+            self.shutdown,
+            10,
+        )
+
     def qrc_image_pub_callback(self):
         _, frame = self.cam.read()
         if frame is None:
+            self.get_logger().info("Get None Pic")
             return
         frame = cv.resize(frame, (0, 0), fx=0.35, fy=0.35)
         # cv.imshow("fr", frame)
@@ -56,6 +82,10 @@ class QrcCam(Node):
     def fps_callback(self):
         self.get_logger().info(f"QRC Cam: Pub FPS: {self.frame_count}")
         self.frame_count = 0
+
+    def shutdown(self, msg):
+        self.get_logger().info(f"Shutdown: {msg.data}")
+        self.destroy_node()
 
 
 def main():

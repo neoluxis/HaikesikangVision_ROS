@@ -27,14 +27,20 @@ class QrcScanner(Node):
         )
         self.res_pub = self.create_publisher(String, "qrc_result", 10)
         self.show = True
+        self.shutdown_sub = self.create_subscription(
+            String,
+            "kill_qrc",
+            self.shutdown,
+            10,
+        )
 
     def scan_code(self, msg):
         t0 = time.time()
-        # cv_img = ros2cv(msg)
-        cv_img = msg.data
-        cv_img = np.reshape(cv_img, (400, 640, 3))
-        cv_img = cv.cvtColor(cv_img, cv.COLOR_BGR2GRAY)
-        cv_img = cv.resize(cv_img, (0,0),fx=0.35, fy=0.35)
+        cv_img = ros2cv(msg)
+        # cv_img = msg.data
+        # cv_img = np.reshape(cv_img, (400, 640, 3))
+        # cv_img = cv.cvtColor(cv_img, cv.COLOR_BGR2GRAY)
+        # cv_img = cv.resize(cv_img, (0,0),fx=0.35, fy=0.35)
         # self.get_logger().info(f"{len(msg.data)}")
         # self.get_logger().info(f"{cv_img.shape}")
         # cv_img = msg.data
@@ -57,6 +63,10 @@ class QrcScanner(Node):
         #     except Exception as e:
         #         self.get_logger().info(f"Show image error: {e}")
         #         self.show = False
+        
+    def shutdown(self, msg):
+        self.get_logger().info(f"Shutdown: {msg.data}")
+        self.destroy_node()
 
 
 def main():

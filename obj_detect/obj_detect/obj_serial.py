@@ -33,7 +33,7 @@ class ObjSerial(Node):
         self.serial_send_pub = self.create_publisher(String, "serial_send", 10)
         self.xin = 180
         self.yin = 420
-        self.mode = 0  # 0: send qrcode info; 1: send obj det results
+        self.mode = 2  # 0: send qrcode info; 1: send obj det results; 2: send both
 
     def qrc_callback(self, msg):
         if self.mode == 1:

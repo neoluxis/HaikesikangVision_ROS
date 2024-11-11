@@ -17,6 +17,7 @@ def generate_launch_description():
         "cap_qrc", default_value="/dev/video2", description="qrcode camera device"
     )
 
+    # TODO: 不能同时开两个？ : 4 usb port are in the same bus. and the usb camera speed is too high
     # 二维码识别的 usb camera
     qrc_usb_cam_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -29,16 +30,23 @@ def generate_launch_description():
             "usb_image_width": "640",
             "usb_image_height": "400",
             "usb_framerate": "240",
-            "usb_pixel_format": "mjpeg",
+            "usb_pixel_format": "mjpeg2rgb",
             "usb_video_device": LaunchConfiguration("cap_qrc"),
         }.items(),
     )
+    
+    # qrc_usb_cam_node = Node(
+    #     package="qrc_skandier",
+    #     executable="qrc_cam",
+    #     name="qrc_cam",
+    #     output="screen",
+    # )
 
     qrc_scanner_hobot_codec_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
                 get_package_share_directory("hobot_codec"),
-                "launch/hobot_codec.launch.py",
+                "launch/hobot_codec_encode.launch.py",
             )
         ),
         launch_arguments={
@@ -54,7 +62,7 @@ def generate_launch_description():
         package="qrc_skandier",
         executable="qrc_scanner",
         name="qrc_scanner",
-        # output="screen",
+        output="screen",
     )
 
     return LaunchDescription(
