@@ -1,12 +1,12 @@
 [Unit]
-Description=Shuixia Robot Startup Script
+Description=Contesta Hexagonna Videa al RDKx5
 
 [Service]
 Type=simple
 
 User=root
 
-ExecStart=/root/dev_ws/gz/service/gz.sh
+ExecStart=/usr/local/bin/appli.sh
 
 PrivateTmp=true
 KillMode=control-group
