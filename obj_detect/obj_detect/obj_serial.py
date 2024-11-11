@@ -14,7 +14,7 @@ class ByteArray(bytearray):
         super().__init__(data)
         self.data = data
 
-    def __str__(self):
+    def __repr__(self):
         return f"[{', '.join([f'0x{byte:02X}' for byte in self.data])}]"
 
 
@@ -39,6 +39,8 @@ class ObjSerial(Node):
         if self.mode == 1:
             return
         self.get_logger().info(f"QRC: {msg.data}")
+        self.send_qrc(msg.data)
+        self.send_qrc(msg.data)
         self.send_qrc(msg.data)
         self.send_qrc(msg.data)
         self.send_qrc(msg.data)

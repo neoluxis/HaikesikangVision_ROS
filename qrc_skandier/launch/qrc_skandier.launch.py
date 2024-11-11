@@ -14,7 +14,7 @@ from ament_index_python.packages import get_package_prefix
 
 def generate_launch_description():
     cap_qrc_dev_arg = DeclareLaunchArgument(
-        "cap_qrc", default_value="/dev/video0", description="qrcode camera device"
+        "cap_qrc", default_value="/dev/video2", description="qrcode camera device"
     )
 
     # 二维码识别的 usb camera
@@ -28,13 +28,40 @@ def generate_launch_description():
         launch_arguments={
             "usb_image_width": "640",
             "usb_image_height": "400",
+            "usb_framerate": "240",
+            "usb_pixel_format": "mjpeg",
             "usb_video_device": LaunchConfiguration("cap_qrc"),
         }.items(),
+    )
+
+    qrc_scanner_hobot_codec_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("hobot_codec"),
+                "launch/hobot_codec.launch.py",
+            )
+        ),
+        launch_arguments={
+            "codec_in_mode": "ros",
+            "codec_in_format": "rgb8",
+            "codec_out_mode": "ros",
+            "codec_sub_topic": "/qrc_image",
+            "codec_pub_topic": "/qrc_image_mjpeg",
+        }.items(),
+    )
+
+    qrc_scanner_node = Node(
+        package="qrc_skandier",
+        executable="qrc_scanner",
+        name="qrc_scanner",
+        # output="screen",
     )
 
     return LaunchDescription(
         [
             cap_qrc_dev_arg,
             qrc_usb_cam_node,
+            qrc_scanner_node,
+            qrc_scanner_hobot_codec_node,
         ]
     )

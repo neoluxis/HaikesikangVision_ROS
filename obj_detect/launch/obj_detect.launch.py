@@ -68,6 +68,24 @@ def generate_launch_description():
         "cap_qrc", default_value=cap_qrc_devnode, description="qrcode camera device"
     )
 
+    config_file_launch_arg = DeclareLaunchArgument(
+        "dnn_example_config_file",
+        default_value=TextSubstitution(text="./yolov5xworkconfig.json"),
+    )
+    dump_render_launch_arg = DeclareLaunchArgument(
+        "dnn_example_dump_render_img", default_value=TextSubstitution(text="0")
+    )
+    image_width_launch_arg = DeclareLaunchArgument(
+        "dnn_example_image_width", default_value=TextSubstitution(text="960")
+    )
+    image_height_launch_arg = DeclareLaunchArgument(
+        "dnn_example_image_height", default_value=TextSubstitution(text="544")
+    )
+    msg_pub_topic_name_launch_arg = DeclareLaunchArgument(
+        "dnn_example_msg_pub_topic_name",
+        default_value=TextSubstitution(text="hobot_dnn_detection"),
+    )
+
     # 目标检测的 usb camera
     cap_objdet_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -79,25 +97,26 @@ def generate_launch_description():
         launch_arguments={
             "usb_image_width": "640",
             "usb_image_height": "480",
+            'usb_framerate': '120',
             "usb_video_device": LaunchConfiguration("cap_objdet"),
         }.items(),
     )
 
-    # 目标检测的 jpeg 编码+发布
-    objdet_jpeg_codec_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory("hobot_codec"),
-                "launch/hobot_codec_encode.launch.py",
-            )
-        ),
-        launch_arguments={
-            "codec_in_mode": "shared_mem",
-            "codec_out_mode": "ros",
-            "codec_sub_topic": "/hbmem_img",
-            "codec_pub_topic": "/image",
-        }.items(),
-    )
+    # # 目标检测的 jpeg 编码+发布 # mipi camera manul sayonghada. 
+    # objdet_jpeg_codec_node = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(
+    #             get_package_share_directory("hobot_codec"),
+    #             "launch/hobot_codec_encode.launch.py",
+    #         )
+    #     ),
+    #     launch_arguments={
+    #         "codec_in_mode": "shared_mem",
+    #         "codec_out_mode": "ros",
+    #         "codec_sub_topic": "/hbmem_img",
+    #         "codec_pub_topic": "/image",
+    #     }.items(),
+    # )
 
     # 目标检测的 nv12 解码+发布
     objdet_nv12_codec_node = IncludeLaunchDescription(
@@ -167,10 +186,16 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
-            cap_objdet_node,
-            cap_qrc_dev_arg,
             cap_objdet_dev_arg,
-            objdet_jpeg_codec_node,
+            cap_qrc_dev_arg,
+            config_file_launch_arg,
+            dump_render_launch_arg,
+            image_width_launch_arg,
+            image_height_launch_arg,
+            msg_pub_topic_name_launch_arg,
+            
+            cap_objdet_node,
+            # objdet_jpeg_codec_node,
             objdet_nv12_codec_node,
             objdet_web_node,
             dnn_node_example_node,
