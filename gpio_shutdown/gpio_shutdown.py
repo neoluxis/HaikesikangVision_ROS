@@ -3,18 +3,19 @@ import sys
 import signal
 import Hobot.GPIO as GPIO
 import os
+import time
 
 def signal_handler(signal, frame):
     GPIO.cleanup()
     sys.exit(0)
 
 # 定义使用的GPIO通道
-shutdown_pin = 38  # BOARD 编码 38
+shutdown_pin = 5  # BOARD 编码 38
 
 # 检测到 38 号引脚的下降沿时关闭系统
 def shutdown_system(channel):
     print("Shutdown button pressed! Shutting down...")
-    os.system("sudo sync && sudo shutdown now")
+    os.system("sync && shutdown now")
 
 def main():
     # Pin Setup
@@ -31,6 +32,11 @@ def main():
         signal.pause()
     finally:
         GPIO.cleanup()  # 清理所有 GPIO
+    # while True:
+    #     status = GPIO.input(shutdown_pin)
+    #     print(status)
+
+    #     time.sleep(1)
 
 if __name__ == '__main__':
     # 捕捉 CTRL+C 信号
