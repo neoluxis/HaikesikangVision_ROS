@@ -81,8 +81,8 @@ class ObjSerial(Node):
     def send_qrc(self, data):
         data = data.encode("utf-8")
         sent = [0xFF]
-        sent.append(0x30)
-        sent.extend(data)
+        sent.append(0x30) # class: qrc
+        sent.extend(data) # data
         sent.append(0xFE)
         # self.get_logger().info(f"QRC: {sent}")
         # self.pub_sent(sent)
@@ -93,9 +93,13 @@ class ObjSerial(Node):
 
     def send(self, name, ctx, cty):
         sent = [0xFF]
-        sent.append(self.name2ser(name))
-        sent.append(int(ctx * 253 / 640))
-        sent.append(int(cty * 253 / 480))
+        sent.append(self.name2ser(name))  # class
+        # sent.append(int(ctx * 253 / 640))
+        # sent.append(int(cty * 253 / 480))
+        sent.append(int(ctx & 0xFF))  # low x
+        sent.append(int(ctx >> 8))  # high x
+        sent.append(int(cty & 0xFF))  # low y
+        sent.append(int(cty >> 8))  # high y
         sent.append(0xFE)
         # self.get_logger().info(f"Data: {sent}")
         # self.pub_sent(sent)
