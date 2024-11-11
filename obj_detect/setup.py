@@ -26,6 +26,7 @@ setup(
     entry_points={
         'console_scripts': [
             "obj_serial = obj_detect.obj_serial:main",
+            "obj_camd = obj_detect.obj_camd:main",
         ],
     },
 )

@@ -87,22 +87,40 @@ def generate_launch_description():
     )
 
     # 目标检测的 usb camera
-    cap_objdet_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory("hobot_usb_cam"),
-                "launch/hobot_usb_cam.launch.py",
-            )
-        ),
-        launch_arguments={
-            "usb_image_width": "640",
-            "usb_image_height": "480",
-            'usb_framerate': '60',
-            "usb_video_device": LaunchConfiguration("cap_objdet"),
-        }.items(),
+    # cap_objdet_node = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(
+    #             get_package_share_directory("hobot_usb_cam"),
+    #             "launch/hobot_usb_cam.launch.py",
+    #         )
+    #     ),
+    #     launch_arguments={
+    #         "usb_image_width": "640",
+    #         "usb_image_height": "480",
+    #         'usb_framerate': '120',
+    #         "usb_video_device": LaunchConfiguration("cap_objdet"),
+    #     }.items(),
+    # )
+
+    obj_camd_node = Node(
+        package="obj_detect",
+        executable="obj_camd",
+        name="obj_camd",
+        parameters=[
+            {"usb_video_device": LaunchConfiguration("cap_objdet")},
+            {"usb_image_width": LaunchConfiguration("dnn_example_image_width")},
+            {"usb_image_height": LaunchConfiguration("dnn_example_image_height")},
+            {"usb_framerate": 120},
+            {
+                "launch_file_path": os.path.join(
+                    get_package_share_directory("obj_detect"),
+                    "launch/obj_cam.launch.py",
+                )
+            },
+        ],
     )
 
-    # # 目标检测的 jpeg 编码+发布 # mipi camera manul sayonghada. 
+    # # 目标检测的 jpeg 编码+发布 # mipi camera manul sayonghada.
     # objdet_jpeg_codec_node = IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
     #         os.path.join(
@@ -193,8 +211,8 @@ def generate_launch_description():
             image_width_launch_arg,
             image_height_launch_arg,
             msg_pub_topic_name_launch_arg,
-            
-            cap_objdet_node,
+            # cap_objdet_node, # 当前不开启目标检测的 usb camera, 开一个守护节点，等待二维码相机释放
+            obj_camd_node,
             # objdet_jpeg_codec_node,
             objdet_nv12_codec_node,
             objdet_web_node,

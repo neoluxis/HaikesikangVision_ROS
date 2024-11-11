@@ -22,29 +22,29 @@ class QrcCam(Node):
         # self.declare_parameter("img_fourcc", cv.VideoWriter.fourcc(*"MJPG"))
 
         self.get_logger().info(f"QrcCam Node {name}")
-        # self.cam = ThreadCap(
-        #     self.get_parameter("cam_idx").get_parameter_value().integer_value,
-        #     self.get_parameter("img_width").get_parameter_value().integer_value,
-        #     self.get_parameter("img_height").get_parameter_value().integer_value,
-        #     self.get_parameter("fps").get_parameter_value().integer_value,
-        # )
-
-        self.cam = cv.VideoCapture(
-            self.get_parameter("cam_idx").get_parameter_value().integer_value
-        )
-        self.cam.set(
-            cv.CAP_PROP_FRAME_WIDTH,
+        self.cam = ThreadCap(
+            self.get_parameter("cam_idx").get_parameter_value().integer_value,
             self.get_parameter("img_width").get_parameter_value().integer_value,
-        )
-        self.cam.set(
-            cv.CAP_PROP_FRAME_HEIGHT,
             self.get_parameter("img_height").get_parameter_value().integer_value,
-        )
-        self.cam.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc(*"MJPG"))
-        self.cam.set(
-            cv.CAP_PROP_FPS,
             self.get_parameter("fps").get_parameter_value().integer_value,
         )
+
+        # self.cam = cv.VideoCapture(
+        #     self.get_parameter("cam_idx").get_parameter_value().integer_value
+        # )
+        # self.cam.set(
+        #     cv.CAP_PROP_FRAME_WIDTH,
+        #     self.get_parameter("img_width").get_parameter_value().integer_value,
+        # )
+        # self.cam.set(
+        #     cv.CAP_PROP_FRAME_HEIGHT,
+        #     self.get_parameter("img_height").get_parameter_value().integer_value,
+        # )
+        # self.cam.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc(*"MJPG"))
+        # self.cam.set(
+        #     cv.CAP_PROP_FPS,
+        #     self.get_parameter("fps").get_parameter_value().integer_value,
+        # )
 
         self.qrc_image_pub = self.create_publisher(Image, "qrc_image", 10)
         timer_period = 0.01  # seconds
