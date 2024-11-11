@@ -25,13 +25,18 @@ def get_max_fps(device):
     except subprocess.CalledProcessError:
         print(f"无法访问设备 {device}")
         return None
+    
+def find_camera(dev_nodes=["video0", "video2"]):
+    return sorted(dev_nodes, key=lambda x: get_max_fps(x), reverse=True)
 
 # 查询 video0 和 video2 的最大帧率
 fps0 = get_max_fps("video0")
-# fps2 = get_max_fps("video2")
+fps2 = get_max_fps("video2")
 
 print(f"video0 最大帧率: {fps0} FPS")
-# print(f"video2 最大帧率: {fps2} FPS")
+print(f"video2 最大帧率: {fps2} FPS")
+
+print(find_camera())
 
 # # 根据最大帧率分配 cap_obj 和 cap_qrc
 # cap_obj, cap_qrc = None, None
