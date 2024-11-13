@@ -34,6 +34,13 @@ class ObjSerial(Node):
         self.xin = 180
         self.yin = 420
         self.mode = 2  # 0: send qrcode info; 1: send obj det results; 2: send both
+        self.call_opened()
+        
+    def call_opened(self):
+        self.ser.write(ByteArray([0xFF, 0xFF, 0xFF, 0xFE]))
+        self.get_logger().info("Serial port opened!")
+        self.get_logger().info("Sent: [0xFF, 0xFF, 0xFF, 0xFE]")
+        self.pub_sent("Serial port opened!")
 
     def qrc_callback(self, msg):
         if self.mode == 1:
@@ -89,8 +96,11 @@ class ObjSerial(Node):
         # self.get_logger().info(f"QRC: {sent}")
         # self.pub_sent(sent)
         sent = ByteArray(sent)
-        self.ser.write(sent)
-        self.get_logger().info(f"QRCode Result: {sent}")
+        if len(data) > 0:
+            self.ser.write(sent)
+            self.get_logger().info(f"QRCode Result: {sent}")
+        else:
+            self.get_logger().info("Manually close qrc cam")
         self.pub_sent(f'{datetime.datetime.now().strftime("%F.%H:%M:%S")}: qrc: {sent}')
 
     def send(self, name, ctx, cty):

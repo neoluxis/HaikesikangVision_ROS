@@ -14,7 +14,7 @@ echo "Recovering network configuration"
 # cat > /etc/NetworkManager/system-connections/Neolux\ Lee.nmconnection <<EOF
 # ...
 # EOF
-chmod 600 /etc/NetworkManager/system-connections/Neolux\ Lee.nmconnection
+# chmod 600 /etc/NetworkManager/system-connections/Neolux\ Lee.nmconnection
 systemctl restart NetworkManager
 
 echo "Recovering environment"
