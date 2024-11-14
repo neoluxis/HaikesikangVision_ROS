@@ -36,19 +36,19 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Recovering SSH keys"
-# mkdir -pv ~/.ssh
-# cat > ~/.ssh/id_rsa <<EOF
-# ...
-# EOF
-# chmod 600 ~/.ssh/id_rsa
-# cat > ~/.ssh/id_rsa.pub <<EOF
-# ...
-# EOF
-# chmod 644 ~/.ssh/id_rsa.pub
-# cat > ~/.ssh/known_hosts <<EOF
-# ...
-# EOF
-# chmod 644 ~/.ssh/known_hosts
+mkdir -pv ~/.ssh
+cat > ~/.ssh/id_rsa <<EOF
+...
+EOF
+chmod 600 ~/.ssh/id_rsa
+cat > ~/.ssh/id_rsa.pub <<EOF
+...
+EOF
+chmod 644 ~/.ssh/id_rsa.pub
+cat > ~/.ssh/known_hosts <<EOF
+...
+EOF
+chmod 644 ~/.ssh/known_hosts
 
 echo "Recovering development workspace"
 mkdir -pv ~/$ws
