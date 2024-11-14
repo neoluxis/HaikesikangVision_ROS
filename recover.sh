@@ -6,7 +6,7 @@ packages=(
     "python3-pyzbar"
 )
 repos=(
-    "git@github.com:neoluxis/HaikesikangVision_ROS.git"
+    "gitea@192.168.137.250:neolux/GongzongAppli.git"
 )
 ws="dev_ws1"
 
