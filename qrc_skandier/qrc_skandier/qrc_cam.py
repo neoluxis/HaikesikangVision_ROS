@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from std_msgs.msg import String
 
 import cv2 as cv
@@ -47,12 +47,14 @@ class QrcCam(Node):
         #     self.get_parameter("fps").get_parameter_value().integer_value,
         # )
 
-        self.qrc_image_pub = self.create_publisher(Image, "qrc_image", 10)
+        # self.qrc_image_pub = self.create_publisher(Image, "qrc_image", 10)
+        self.qrc_image_pub = self.create_publisher(CompressedImage, "image", 10)
+
         timer_period = 0.01  # seconds
         self.qrc_image_pub_timer = self.create_timer(
             timer_period, self.qrc_image_pub_callback
         )
-        self.msg = Image()
+        self.msg = CompressedImage()
 
         self.frame_count = 0
         self.fps_timer = self.create_timer(1, self.fps_callback)
@@ -73,10 +75,10 @@ class QrcCam(Node):
         # cv.imshow("fr", frame)
         # cv.waitKey(1)
         self.msg.data = cv2ros(frame)
-        self.msg.width = frame.shape[1]
-        self.msg.height = frame.shape[0]
-        self.msg.encoding = "jpeg"
-        self.msg.step = frame.shape[1] * 2
+        # self.msg.width = frame.shape[1]
+        # self.msg.height = frame.shape[0]
+        # self.msg.encoding = "jpeg"
+        # self.msg.step = frame.shape[1] * 2
         self.qrc_image_pub.publish(self.msg)
         self.frame_count += 1
 

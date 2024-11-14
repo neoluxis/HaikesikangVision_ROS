@@ -6,6 +6,7 @@ from sensor_msgs.msg import Image, CompressedImage
 import subprocess
 import os
 import time
+from glob import glob
 
 import cv2 as cv
 import numpy as np
@@ -15,14 +16,15 @@ import datetime
 class ObjVidDumper(Node):
     def __init__(self, name="1"):
         super().__init__(f"obj_vid_dumper_{name}")
-        self.get_logger().info(f"Init video dumper, node {name}")
+        self.get_logger().info(f"Init video dumper, node obj_vid_dumper_{name}")
 
         self.declare_parameter("video_dir", "/root/dev_ws/appli/_tmp_videos/")
         self.declare_parameter("video_fps", 20)
         self.declare_parameter("video_width", 640)
         self.declare_parameter("video_height", 480)
         self.declare_parameter("video_fourcc", "MJPG")
-        self.declare_parameter("video_update_time", 10)
+        self.declare_parameter("video_update_time", 20)
+        self.declare_parameter("video_packup_time", 120)
 
         os.makedirs(
             self.get_parameter("video_dir").get_parameter_value().string_value,
@@ -38,6 +40,11 @@ class ObjVidDumper(Node):
 
         self.image_sub = self.create_subscription(
             CompressedImage, "image", self.image_callback, 10
+        )
+
+        self.timer_packup = self.create_timer(
+            self.get_parameter("video_packup_time").get_parameter_value().integer_value,
+            self.timer_packup_callback,
         )
 
     def get_fd_fname(self):
@@ -95,7 +102,30 @@ class ObjVidDumper(Node):
         np_arr = np.frombuffer(msg.data, np.uint8)
         frame = cv.imdecode(np_arr, cv.IMREAD_COLOR)
         self.dump_frame(frame)
-        
+
+    def timer_packup_callback(self):
+        """
+        将当前视频文件打包，并清理
+        """
+        tarname = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        tarname = tarname + ".tar.gz"
+        tarname = os.path.join(
+            self.get_parameter("video_dir").get_parameter_value().string_value, tarname
+        )
+        videos2bpack = glob(
+            os.path.join(
+                self.get_parameter("video_dir").get_parameter_value().string_value,
+                "*.avi",
+            )
+        )
+        cmd = ["tar", "-czvf", tarname]
+        cmd.extend(videos2bpack)
+        self.get_logger().info(f"Packup videos: {cmd}")
+        subprocess.run(cmd)
+
+        # clear
+        for video in videos2bpack:
+            os.remove(video)
 
 
 def main(args=None):

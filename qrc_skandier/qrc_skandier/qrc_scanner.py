@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from std_msgs.msg import String
 
 import cv2 as cv
@@ -18,9 +18,16 @@ class QrcScanner(Node):
     def __init__(self, name):
         super().__init__(name)
 
+        # self.qrc_img_sub = self.create_subscription(
+        #     Image,
+        #     "qrc_image",
+        #     # "image_mjpeg",
+        #     self.scan_code,
+        #     10,
+        # )
         self.qrc_img_sub = self.create_subscription(
-            Image,
-            "qrc_image",
+            CompressedImage,
+            "image",
             # "image_mjpeg",
             self.scan_code,
             10,
