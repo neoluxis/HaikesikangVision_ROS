@@ -27,7 +27,7 @@ class QrcScanner(Node):
         # )
         self.qrc_img_sub = self.create_subscription(
             CompressedImage,
-            "image",
+            "qrc_image",
             # "image_mjpeg",
             self.scan_code,
             10,

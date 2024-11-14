@@ -54,7 +54,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
             'websocket_image_topic',
-            default_value='/image',
+            default_value='/qrc_image',
             description='image subscribe topic name'),
         DeclareLaunchArgument(
             'websocket_image_type',

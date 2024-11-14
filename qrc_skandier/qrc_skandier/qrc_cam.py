@@ -48,7 +48,7 @@ class QrcCam(Node):
         # )
 
         # self.qrc_image_pub = self.create_publisher(Image, "qrc_image", 10)
-        self.qrc_image_pub = self.create_publisher(CompressedImage, "image", 10)
+        self.qrc_image_pub = self.create_publisher(CompressedImage, "qrc_image", 10)
 
         timer_period = 0.01  # seconds
         self.qrc_image_pub_timer = self.create_timer(

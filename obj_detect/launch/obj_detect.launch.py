@@ -208,20 +208,22 @@ def generate_launch_description():
         name="obj_serial",
     )
 
+    # 视频保存
+    video_take_node = Node(
+        package="obj_detect",
+        executable="obj_vid_dumper",
+        name="obj_vid_dumper",
+        parameters=[
+            {"video_dir": "/root/dev_ws/appli/_tmp_videos/"},
+            {"video_fps": 20},
+            {"video_width": 640},
+            {"video_height": 480},
+            {"video_fourcc": "MJPG"},
+            {"video_update_time": 10},
+        ],
+    )
+
     if LaunchConfiguration("run_mode") == "take":
-        video_take_node = Node(
-            package="obj_detect",
-            executable="obj_vid_dumper",
-            name="obj_vid_dumper",
-            parameters=[
-                {"video_dir": "/root/dev_ws/appli/_tmp_videos/"},
-                {"video_fps": 20},
-                {"video_width": 640},
-                {"video_height": 480},
-                {"video_fourcc": "MJPG"},
-                {"video_update_time": 10},
-            ],
-        )
         return LaunchDescription(
             [
                 cap_objdet_dev_arg,
@@ -244,7 +246,7 @@ def generate_launch_description():
             ]
         )
     else:
-        return LaunchConfiguration(
+        return LaunchDescription(
             [
                 cap_objdet_dev_arg,
                 cap_qrc_dev_arg,

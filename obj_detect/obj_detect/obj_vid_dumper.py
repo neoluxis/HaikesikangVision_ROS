@@ -84,6 +84,23 @@ class ObjVidDumper(Node):
         """
         if self.video_fd is None:
             return
+        if (
+            not frame.shape[0]
+            == self.get_parameter("video_height").get_parameter_value().integer_value
+            or not frame.shape[1]
+            == self.get_parameter("video_width").get_parameter_value().integer_value
+        ):
+            frame = cv.resize(
+                frame,
+                (
+                    self.get_parameter("video_width")
+                    .get_parameter_value()
+                    .integer_value,
+                    self.get_parameter("video_height")
+                    .get_parameter_value()
+                    .integer_value,
+                ),
+            )
         s[0] += 1
         if s[0] % 5 == 0:
             if self.video_fd is not None:
