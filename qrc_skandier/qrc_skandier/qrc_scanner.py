@@ -66,7 +66,7 @@ class QrcScanner(Node):
         #     except Exception as e:
         #         self.get_logger().info(f"Show image error: {e}")
         #         self.show = False
-        
+
     def shutdown(self, msg):
         self.get_logger().info(f"Shutdown: {msg.data}")
         self.destroy_node()

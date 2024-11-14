@@ -86,6 +86,12 @@ def generate_launch_description():
         default_value=TextSubstitution(text="hobot_dnn_detection"),
     )
 
+    run_mode_arg = DeclareLaunchArgument(
+        "run_mode",
+        default_value="take",
+        description="run mode: take(video) or non-take(video)",
+    )
+
     # 目标检测的 usb camera
     # cap_objdet_node = IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
@@ -202,22 +208,59 @@ def generate_launch_description():
         name="obj_serial",
     )
 
-    return LaunchDescription(
-        [
-            cap_objdet_dev_arg,
-            cap_qrc_dev_arg,
-            config_file_launch_arg,
-            dump_render_launch_arg,
-            image_width_launch_arg,
-            image_height_launch_arg,
-            msg_pub_topic_name_launch_arg,
-            # cap_objdet_node, # 当前不开启目标检测的 usb camera, 开一个守护节点，等待二维码相机释放
-            obj_camd_node,
-            # objdet_jpeg_codec_node,
-            objdet_nv12_codec_node,
-            objdet_web_node,
-            dnn_node_example_node,
-            shared_mem_node,
-            obj_serial_node,
-        ]
-    )
+    if LaunchConfiguration("run_mode") == "take":
+        video_take_node = Node(
+            package="obj_detect",
+            executable="obj_vid_dumper",
+            name="obj_vid_dumper",
+            parameters=[
+                {"video_dir": "/root/dev_ws/appli/_tmp_videos/"},
+                {"video_fps": 20},
+                {"video_width": 640},
+                {"video_height": 480},
+                {"video_fourcc": "MJPG"},
+                {"video_update_time": 10},
+            ],
+        )
+        return LaunchDescription(
+            [
+                cap_objdet_dev_arg,
+                cap_qrc_dev_arg,
+                config_file_launch_arg,
+                dump_render_launch_arg,
+                image_width_launch_arg,
+                image_height_launch_arg,
+                msg_pub_topic_name_launch_arg,
+                run_mode_arg,
+                # cap_objdet_node, # 当前不开启目标检测的 usb camera, 开一个守护节点，等待二维码相机释放
+                obj_camd_node,
+                # objdet_jpeg_codec_node,
+                objdet_nv12_codec_node,
+                objdet_web_node,
+                dnn_node_example_node,
+                shared_mem_node,
+                obj_serial_node,
+                video_take_node,
+            ]
+        )
+    else:
+        return LaunchConfiguration(
+            [
+                cap_objdet_dev_arg,
+                cap_qrc_dev_arg,
+                config_file_launch_arg,
+                dump_render_launch_arg,
+                image_width_launch_arg,
+                image_height_launch_arg,
+                msg_pub_topic_name_launch_arg,
+                run_mode_arg,
+                # cap_objdet_node, # 当前不开启目标检测的 usb camera, 开一个守护节点，等待二维码相机释放
+                obj_camd_node,
+                # objdet_jpeg_codec_node,
+                objdet_nv12_codec_node,
+                objdet_web_node,
+                dnn_node_example_node,
+                shared_mem_node,
+                obj_serial_node,
+            ]
+        )
