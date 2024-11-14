@@ -54,6 +54,8 @@ class QrcScanner(Node):
             self.get_logger().info(f"Detected: {text}")
             self.res_pub.publish(String(data=text))
         self.get_logger().info(f"Scan time: {time.time() - t0:.3f}")
+        # cv.imshow("qrc", cv_img)
+        # cv.waitKey(1)
         # TODO: Remove this part showing the image instead, using a flask server
         # if self.show:
         #     try:

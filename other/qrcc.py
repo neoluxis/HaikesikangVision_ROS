@@ -1,4 +1,5 @@
 import cv2 as cv
+import pyzbar.pyzbar as pyzbar
 
 cap = cv.VideoCapture('/dev/video2')
 cap.set(cv.CAP_PROP_FRAME_WIDTH, 640)
@@ -15,6 +16,11 @@ while True:
     if not _: 
         print("No open")
         break
+
+    decode = pyzbar.decode(frame)
+    if decode:
+        text = decode[0].data.decode("utf-8")
+        print(text)
     cv.imshow("f", frame)
     # out.write(frame)
     key = cv.waitKey(1)

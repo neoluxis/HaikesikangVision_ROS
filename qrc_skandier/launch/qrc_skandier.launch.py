@@ -39,7 +39,10 @@ def generate_launch_description():
         package="qrc_skandier",
         executable="qrc_cam",
         name="qrc_cam",
-        output="screen",
+        parameters=[
+            {"cam_idx": LaunchConfiguration("cap_qrc")},
+        ],
+
     )
 
     qrc_scanner_hobot_codec_node = IncludeLaunchDescription(

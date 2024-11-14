@@ -15,7 +15,7 @@ class QrcCam(Node):
     def __init__(self, name):
         super().__init__(name)
 
-        self.declare_parameter("cam_idx", 0)
+        self.declare_parameter("cam_idx", "/dev/video0")
         self.declare_parameter("fps", 240)
         self.declare_parameter("img_width", 640)
         self.declare_parameter("img_height", 400)
@@ -23,11 +23,12 @@ class QrcCam(Node):
 
         self.get_logger().info(f"QrcCam Node {name}")
         self.cam = ThreadCap(
-            self.get_parameter("cam_idx").get_parameter_value().integer_value,
+            self.get_parameter("cam_idx").get_parameter_value().string_value,
             self.get_parameter("img_width").get_parameter_value().integer_value,
             self.get_parameter("img_height").get_parameter_value().integer_value,
             self.get_parameter("fps").get_parameter_value().integer_value,
         )
+        self.get_logger().info(f'Using {self.get_parameter("cam_idx").get_parameter_value().integer_value} for QRCcode Scan')
 
         # self.cam = cv.VideoCapture(
         #     self.get_parameter("cam_idx").get_parameter_value().integer_value
