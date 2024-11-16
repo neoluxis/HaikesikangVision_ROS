@@ -35,6 +35,7 @@ class ObjSerial(Node):
         self.yin = 420
         self.mode = 2  # 0: send qrcode info; 1: send obj det results; 2: send both
         # self.call_opened() # no send a startup signal. Send all even empty qrcode data
+        self.cnt = 0
 
     def call_opened(self):
         self.ser.write(ByteArray([0xFF, 0xFF, 0xFF, 0xFE]))
@@ -47,7 +48,10 @@ class ObjSerial(Node):
             return
         self.get_logger().info(f"QRC: {msg.data}")
         if msg.data != "":
-            self.send_qrc(msg.data)
+            if self.cnt == 50:
+                self.cnt = 0
+                self.send_qrc(msg.data)
+            self.cnt += 1
             if (
                 msg.data != "0000000"
             ):  # 如果识别到了二维码（valid data）就多发送几次后再切换模式

@@ -211,8 +211,8 @@ def generate_launch_description():
     # 视频保存
     video_take_node = Node(
         package="obj_detect",
-        executable="obj_vid_dumper",
-        name="obj_vid_dumper",
+        executable="obj_video_dumper",
+        name="obj_video_dumper",
         parameters=[
             {"video_dir": "/root/dev_ws/appli/_tmp_videos/"},
             {"video_fps": 20},
@@ -223,7 +223,10 @@ def generate_launch_description():
         ],
     )
 
-    if LaunchConfiguration("run_mode") == "take":
+    # print("run_mode: ", LaunchConfiguration("run_mode"))
+    # if LaunchConfiguration("run_mode").perform(None) == "take":
+    if True:
+        # print("run_mode: take")
         return LaunchDescription(
             [
                 cap_objdet_dev_arg,
