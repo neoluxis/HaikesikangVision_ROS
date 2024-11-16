@@ -93,7 +93,7 @@ class ObjSerial(Node):
     def send_qrc(self, data):
         data = data.encode("utf-8")
         sent = [0xFF]
-        sent.append(0x30) # class: qrc
+        sent.append(0x37) # class: qrc
         sent.extend(data) # data
         sent.append(0xFE)
         # self.get_logger().info(f"QRC: {sent}")
