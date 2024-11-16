@@ -16,6 +16,9 @@ class QrcCamKiller(Node):
 
     def kill_qrc(self, msg):
         """To kill all nodes to scan a qrcode. They are"""
+        if msg.data == "0000000":
+            self.get_logger().info("Received: 0000000, no kills")
+            return
         self.get_logger().info(f"Received: {msg.data}, killing qrc* nodes")
         self.qrc_kill_pub.publish(String(data="kill"))
         self.get_logger().info("Killed all qrc* nodes")

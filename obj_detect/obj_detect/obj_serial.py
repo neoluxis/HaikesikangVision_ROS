@@ -35,7 +35,7 @@ class ObjSerial(Node):
         self.yin = 420
         self.mode = 2  # 0: send qrcode info; 1: send obj det results; 2: send both
         # self.call_opened() # no send a startup signal. Send all even empty qrcode data
-        
+
     def call_opened(self):
         self.ser.write(ByteArray([0xFF, 0xFF, 0xFF, 0xFE]))
         self.get_logger().info("Serial port opened!")
@@ -48,13 +48,14 @@ class ObjSerial(Node):
         self.get_logger().info(f"QRC: {msg.data}")
         if msg.data != "":
             self.send_qrc(msg.data)
-            self.send_qrc(msg.data)
-            self.send_qrc(msg.data)
-            self.send_qrc(msg.data)
-            self.send_qrc(msg.data)
-            self.mode = 1 # valid adata scanned to set flag to 1
-        else:
-            self.send_qrc("0000000")
+            if (
+                msg.data != "0000000"
+            ):  # 如果识别到了二维码（valid data）就多发送几次后再切换模式
+                self.send_qrc(msg.data)
+                self.send_qrc(msg.data)
+                self.send_qrc(msg.data)
+                self.send_qrc(msg.data)
+                self.mode = 1  # valid adata scanned to set flag to 1
 
     def det_callback(self, msg):
         # self.get_logger().info("Det recvd!")
@@ -93,8 +94,8 @@ class ObjSerial(Node):
     def send_qrc(self, data):
         data = data.encode("utf-8")
         sent = [0xFF]
-        sent.append(0x37) # class: qrc
-        sent.extend(data) # data
+        sent.append(0x37)  # class: qrc
+        sent.extend(data)  # data
         sent.append(0xFE)
         # self.get_logger().info(f"QRC: {sent}")
         # self.pub_sent(sent)

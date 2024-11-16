@@ -13,7 +13,7 @@ tmux select-pane -t 0
 tmux send-keys "appli.sh" C-m
 
 tmux select-pane -t 2
-tmux send-keys "sleep 9" C-m
+tmux send-keys "sleep 8" C-m
 tmux send-keys "ros2 topic echo /serial_send" C-m
 
 tmux select-pane -t 1
