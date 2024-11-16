@@ -60,10 +60,13 @@ class QrcScanner(Node):
             text = decoded_objects[0].data.decode("utf-8")
             self.get_logger().info(f"Detected: {text}")
             self.res_pub.publish(String(data=text))
+        else:
+            self.res_pub.publish(String(data="")) # send an empty string if no qrc detected, to show running
         self.get_logger().info(f"Scan time: {time.time() - t0:.3f}")
+        
+        # TODO: Remove this part showing the image instead, using a flask server
         # cv.imshow("qrc", cv_img)
         # cv.waitKey(1)
-        # TODO: Remove this part showing the image instead, using a flask server
         # if self.show:
         #     try:
         #         cv.imshow("qrc", cv_img)

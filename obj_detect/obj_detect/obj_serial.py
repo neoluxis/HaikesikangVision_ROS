@@ -34,7 +34,7 @@ class ObjSerial(Node):
         self.xin = 180
         self.yin = 420
         self.mode = 2  # 0: send qrcode info; 1: send obj det results; 2: send both
-        self.call_opened()
+        # self.call_opened() # no send a startup signal. Send all even empty qrcode data
         
     def call_opened(self):
         self.ser.write(ByteArray([0xFF, 0xFF, 0xFF, 0xFE]))
@@ -46,12 +46,15 @@ class ObjSerial(Node):
         if self.mode == 1:
             return
         self.get_logger().info(f"QRC: {msg.data}")
-        self.send_qrc(msg.data)
-        self.send_qrc(msg.data)
-        self.send_qrc(msg.data)
-        self.send_qrc(msg.data)
-        self.send_qrc(msg.data)
-        self.mode = 1
+        if msg.data != "":
+            self.send_qrc(msg.data)
+            self.send_qrc(msg.data)
+            self.send_qrc(msg.data)
+            self.send_qrc(msg.data)
+            self.send_qrc(msg.data)
+            self.mode = 1 # valid adata scanned to set flag to 1
+        else:
+            self.send_qrc("0000000")
 
     def det_callback(self, msg):
         # self.get_logger().info("Det recvd!")
