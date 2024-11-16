@@ -61,7 +61,7 @@ class QrcScanner(Node):
             self.get_logger().info(f"Detected: {text}")
             self.res_pub.publish(String(data=text))
         else:
-            self.res_pub.publish(String(data="")) # send an empty string if no qrc detected, to show running
+            self.res_pub.publish(String(data="0000000")) # send an empty string if no qrc detected, to show running
         self.get_logger().info(f"Scan time: {time.time() - t0:.3f}")
         
         # TODO: Remove this part showing the image instead, using a flask server
