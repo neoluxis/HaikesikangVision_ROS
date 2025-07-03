@@ -61,6 +61,7 @@ class QrcScanner(Node):
             self.get_logger().info(f"Detected: {text}")
             self.res_pub.publish(String(data=text))
         else:
+            self.get_logger().info("Detect None! Sending 0s")
             self.res_pub.publish(String(data="0000000")) # send an empty string if no qrc detected, to show running
         self.get_logger().info(f"Scan time: {time.time() - t0:.3f}")
         
